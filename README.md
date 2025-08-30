@@ -74,6 +74,43 @@ EXPLAIN ANALYZE SELECT * FROM staff where salary > 150000
 
 ### Indexing
 
+- Speed up data access
+- Enforce constraints
+- Ordered
+- Smaller than tables
+- Reduce table scans
+- Duplicates data
+- Different organization than table
+
+#### Index type
+
+- B-tree
+- Bitmap
+- Hash
+- Special purpose
+
+### B-tree index
+
+- Balanced tree
+- Most common
+- High cardinality
+- Time based on tree depth
+
+### B-tree index plan
+
+```sql
+select count(*) from staff
+select * from staff where email = 'bphillips5@time.com'
+
+explain select * from staff where email = 'bphillips5@time.com'
+create index idx_staff_email on staff(email);
+explain select * from staff where email = 'bphillips5@time.com'
+
+drop index idx_staff_email;
+```
+
+### Bitmap index
+
 ```sql
 
 ```
