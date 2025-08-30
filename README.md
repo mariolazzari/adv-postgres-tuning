@@ -111,6 +111,32 @@ drop index idx_staff_email;
 
 ### Bitmap index
 
-```sql
+- Boolean operations
+- Small number of possible values in a column
+- Time based on bitwise operation to perform
 
+### Bitmap index execution plan
+
+```sql
+select distinct job_title from staff order by job_title
+select * from staff where job_title = 'operator'
+create index idx_staff_job_title on staff(job_title);
+explain select * from staff where job_title = 'operator'
+```
+
+### Hash index
+
+- Maps data length to fixed string
+- Virtually unique
+- Input changes produce new hash
+- Only for equality
+- Smaller than B-tree
+- As fast as B-tree
+
+### Hash index execution plan
+
+```sql
+create index idx_staff_email on staff using hash (email)
+explain select * from staff
+where email = 'bphillips5@time.com'
 ```
