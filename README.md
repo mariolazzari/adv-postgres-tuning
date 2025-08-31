@@ -242,3 +242,75 @@ INNER JOIN
 ON
    s.region_id = cr.region_id
 ```
+
+### Merge join
+
+- Sort merge
+- First step i sorting both tables
+- Sort reduces the number of checks
+- Equality only
+- Time based on table size
+- Large tables join
+
+### Merge join plan
+
+```sql
+set enable_nestloop=false;
+set enable_hashjoin=false;
+set enable_mergejoin=true;
+
+EXPLAIN SELECT
+  s.id, s.last_name, s.job_title, cr.country
+FROM
+   staff s
+INNER JOIN
+   company_regions cr
+ON
+   s.region_id = cr.region_id
+```
+
+### Sub-queries vs joins
+
+```sql
+SELECT s.id, s.last_name, s.department,
+ (SELECT 
+ company_regions
+ FROM
+ company_regions cr)
+ WHERE
+ cr.region_id = s.region_staff s
+```
+
+- Same logical outcome
+- More than one way to express same thing
+- Join more efficient
+- Choose more clarity one in code
+
+## Partitioning Data
+
+### Horizontal vs Verical
+
+#### Horizontal partitioning
+
+- Large tables could lead to bad query performance
+- Split tables by rows into partitions
+- Treat each partition like a table
+- Limit scan on subsets
+- Local index for each partition
+- Efficient add and delete operations
+- Data warehouse
+- Timeseries
+- Naturally driven
+
+#### Vertical patitioning
+
+- Separates columns into multiple tables
+- Keep frequently queried columns togheter
+- Same primary key
+- More rows for data block
+- Global indexes
+- Reduce I/O
+- Data analytics
+- Tech data
+
+### Range partition
