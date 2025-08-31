@@ -215,3 +215,30 @@ INNER JOIN
 ON
    s.region_id = cr.region_id
 ```
+
+### Hash joins
+
+- Function that creates data for mapping data
+- Can act as an index for fetching that data
+- Virtually unique
+- It uses the smaller table and it stores its values
+- Equality only
+- Time based on table size
+- Fast lookup
+
+### Hash join plan
+
+```sql
+set enable_nestloop=false;
+set enable_hashjoin=true;
+set enable_mergejoin=false;
+
+EXPLAIN SELECT
+  s.id, s.last_name, s.job_title, cr.country
+FROM
+   staff s
+INNER JOIN
+   company_regions cr
+ON
+   s.region_id = cr.region_id
+```
