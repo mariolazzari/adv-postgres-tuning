@@ -140,3 +140,78 @@ create index idx_staff_email on staff using hash (email)
 explain select * from staff
 where email = 'bphillips5@time.com'
 ```
+
+### Bloom filter indexes
+
+- Probabilistic and space efficient
+- Lossy reppresentation
+- False positive
+- Arbitrary combinations
+- B-tree is faster but bigger
+
+### Specilized indexes
+
+- GIS: generalize search tree
+- SP_GIS: space partitioned gis
+- GIN: text indexing
+- BRIN: block range index
+
+## Tuning joins
+
+### Types of joins
+
+- Inner: all matching rows from both tables
+- Left outer: all rows from left table and matching ones from right
+- Right outer: all rows from right table and matching ones from left
+- Full outer: all rows from both tables
+
+### Nested loops
+
+- Works for all types of join
+- 2 loops
+- Outer loop: driver (it runs once)
+- Inner loop: join (it runs for each row)
+
+### Nested loop plan
+
+```sql
+SELECT
+  s.id, s.last_name, s.job_title, cr.country
+FROM
+   staff s
+INNER JOIN
+   company_regions cr
+ON
+   s.region_id = cr.region_id
+
+EXPLAIN SELECT
+  s.id, s.last_name, s.job_title, cr.country
+FROM
+   staff s
+INNER JOIN
+   company_regions cr
+ON
+   s.region_id = cr.region_id
+
+set enable_nestloop=true;
+set enable_hashjoin=false;
+set enable_mergejoin=false;
+
+SELECT
+  s.id, s.last_name, s.job_title, cr.country
+FROM
+   staff s
+INNER JOIN
+   company_regions cr
+ON
+   s.region_id = cr.region_id
+
+EXPLAIN SELECT
+  s.id, s.last_name, s.job_title, cr.country
+FROM
+   staff s
+INNER JOIN
+   company_regions cr
+ON
+   s.region_id = cr.region_id
+```
