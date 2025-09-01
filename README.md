@@ -470,3 +470,21 @@ auto_explain.log_nested_statements
 ```sql
 SELECT * from PG_STATS;
 ```
+
+## Optimization technoques
+
+### Common Table Expressions
+
+- Computed once (default)
+- Muliple teimes in line
+- 
+
+```sql
+with cte items AS (...)
+select ... FROM items WHERE ...
+
+with cte items AS MATERIALIZED (...)
+select ... FROM items WHERE ...
+```
+
+### Hints to query optimizer
