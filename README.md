@@ -435,4 +435,38 @@ on
    s.region_id = cr.region_id
 ```
 
-### 
+### Refreshing materialized views
+
+```sql
+select * from mv_staff
+refresh materialized view mv_staff;
+```
+
+## Database statistics
+
+### Collect statistics
+
+```sql
+REINDEX INDEX INDEX_NAME
+REINDEX TABLE TABLE_NAME
+REINDEX SCHEMA SCHEMA_NAME
+```
+
+### Analyzing statistics
+
+```sql
+pg_stat_statements
+```
+
+### Review statistics
+
+```sql
+auto_explain.min_duration
+auto_explain.log_nested_statements
+```
+
+### Additional analysis
+
+```sql
+SELECT * from PG_STATS;
+```
