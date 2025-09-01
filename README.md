@@ -349,3 +349,34 @@ FOR VALUES FROM ('2024-01-08') TO ('2024-01-15');
 CREATE TABLE iot_measurement_wk3_2024 PARTITION OF iot_measurement
 FOR VALUES FROM ('2024-01-15') TO ('2024-01-22');
 ```
+
+### List partitioning
+
+- Horizontal partitioning
+- On non overlapping keys
+- On list of values
+- Partition key determines which partition
+- Partition bounds determines the portion on values
+- Each partition has its own constraints
+
+### List partitioning example
+
+```sql
+create table products
+ (prod_id int not null,
+  prod_name text not null,
+  prod_descr text not null,
+  prod_category text)
+partition by list (prod_category);
+
+create table product_clothing partition of products
+ for values in (‘casual_clothing’, ‘business_attire’, ‘formal_clothing);
+
+create table product_electronics partition of products
+ for values in (‘mobile_phones’, ‘tablets’, ‘laptop_computers’);
+
+create table product_kitches partition of products
+ for values in (‘food_processor, ‘cutlery’, ‘blenders’);
+```
+
+### Partition by hash
