@@ -409,3 +409,30 @@ create table customer_interactions_4 partition of customer_interaction
 create table customer_interactions_5 partition of customer_interaction
    for values with (modulus 5 remainder 4);
 ```
+
+## Materialized views
+
+### Materialized view
+
+- Pre computed queries
+- Join and store results
+- Apply other operations
+- Duplicates data
+- Potential inconsistency
+  
+### Materialized view example
+
+```sql
+create materialized view mv_staff as
+   select
+      s.last_name, s.department, s.job_title,
+      cr.company_regions
+ from 
+   staff s
+inner join
+  company_regioins cr
+on
+   s.region_id = cr.region_id
+```
+
+### 
