@@ -488,3 +488,32 @@ select ... FROM items WHERE ...
 ```
 
 ### Hints to query optimizer
+
+- Suggestion to quesry builder
+
+```sql
+SET command
+SET enabled_nestloop=on
+```
+
+### Parallel queries
+
+- Optimizer detects parallel queries
+- Executes them in parallel
+- Gathers results
+- May be less efficient
+- B-trees only
+  
+```sql
+GATHER
+GATHER MERGE
+```
+
+### Improving cache
+
+- Stores results in order to reuse them
+- Explain plan: hits from cache, read from disk
+- Shared memoru buffer: 128Mb by default
+
+### Helpful tips
+
